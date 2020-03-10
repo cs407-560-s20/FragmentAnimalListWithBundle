@@ -74,8 +74,6 @@ class AnimalDetailsFragment : Fragment() {
 
     private fun updateDetails(position: Int) {
 
-        //Log.d(TAG, "Received data....$position")
-
         // Set the text to tetviews after getting the selected position
         animal_name.text = ANIMAL_NAME_LIST[position]
         animal_details.text = ANIMAL_DETAILS[position]
