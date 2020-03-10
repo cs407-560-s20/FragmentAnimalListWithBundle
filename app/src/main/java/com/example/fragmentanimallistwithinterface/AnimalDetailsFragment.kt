@@ -18,7 +18,7 @@ class AnimalDetailsFragment : Fragment() {
 
     private val ANIMAL_NAME_LIST = listOf("Dog", "Cat", "Bear", "Rabbit")
 
-    // Source wikipedia
+    // Source: wikipedia
     private val ANIMAL_DETAILS = listOf(
 
         "Dogs' typical lifespan varies widely among breeds, but for most the median longevity, " +
@@ -42,23 +42,10 @@ class AnimalDetailsFragment : Fragment() {
     )
 
 
-
-    var mCurrentPosition = 0
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-        // If activity recreated (such as from screen rotate), restore
-        // the previous article selection set by onSaveInstanceState().
-        // This is primarily necessary when in the two-pane layout.
-        if (savedInstanceState != null) {
-            mCurrentPosition = savedInstanceState.getInt("position");
-        }
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_animal_details, container, false)
     }
@@ -69,24 +56,25 @@ class AnimalDetailsFragment : Fragment() {
         // During startup, check if there are arguments passed to the fragment.
         // onStart is a good place to do this because the layout has already been
         // applied to the fragment at this point so we can safely call the method
-        // below that sets the article text.
+        // below that sets the details.
 
         Log.d(TAG, "onStart")
+
         if (arguments != null) {
-            // Set article based on argument passed in
-            val data = arguments?.getInt("position")
-            receiveListPosition(data!!)
+            // Set details based on argument (position) passed in
+            val position = arguments?.getInt("position") ?: 0
+            updateDetails(position)
         }
         else{
             // Load the default position
-            receiveListPosition(mCurrentPosition)
+            updateDetails(0)
         }
     }
 
 
-    fun receiveListPosition(position: Int) {
+    private fun updateDetails(position: Int) {
 
-        Log.d(TAG, "Received data....$position")
+        //Log.d(TAG, "Received data....$position")
 
         // Set the text to tetviews after getting the selected position
         animal_name.text = ANIMAL_NAME_LIST[position]
@@ -99,10 +87,7 @@ class AnimalDetailsFragment : Fragment() {
             2 -> R.drawable.bear
             else -> R.drawable.rabbit
         }
-
         animal_image.setImageResource(imageId)
-
-        this.mCurrentPosition = position
     }
 
 }
